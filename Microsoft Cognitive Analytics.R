@@ -32,8 +32,8 @@
   
 ### Tutorial link: https://bigdataenthusiast.wordpress.com/2016/10/02/microsoft-cognitive-services-text-analytics-api-in-r/
   
-  key <- "https://westus.api.cognitive.microsoft.com/text/analytics/v2.0/"
-  url <- "5863e810535e44b691c8e105e3b448bf"
+  url <- "https://westus.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment"
+  key <- "5863e810535e44b691c8e105e3b448bf"
   
   
   request_body <- data.frame(

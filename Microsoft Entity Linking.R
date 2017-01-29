@@ -1,4 +1,4 @@
-###
+### Libraries
 
 library(jsonlite)
 library(httr)
@@ -26,14 +26,7 @@ library(httr)
 
 
 ### 
-  review <- toString(mymatrix$Text[1])
+  review <- toString(mymatrix$Text[15233])
   getEntity(review)
   
-
-
-cls <- function() {
-  cat("\014")
-}
-
-x <- readline("Enter Value: ")
 

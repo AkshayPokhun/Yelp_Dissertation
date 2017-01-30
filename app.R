@@ -11,7 +11,8 @@ ui <- dashboardPage(
     
     sidebarMenu(
     menuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard")),
-    menuItem("Widgets", tabName = "CSV", icon = icon("th"))
+    menuItem("CSV", tabName = "CSV", icon = icon("th")),
+    menuItem("Cognitive Services", tabName = "Cognitive", icon = icon("th"))
   )
   
   ),
@@ -20,36 +21,58 @@ ui <- dashboardPage(
     
     tabItems(
       # First tab content
-      tabItem(tabName = "dashboard",
-              fluidRow(
-                box(plotOutput("plot1", height = 250)),
+      tabItem(
+        
+        tabName = "dashboard",
+        fluidRow(
+          
+            box(plotOutput("plot1", height = 250)),
                 
-                box(
-                  title = "Controls",
-                  sliderInput("slider", "Number of observations:", 1, 100, 50)
+            box(
+                title = "Controls",
+                sliderInput("slider", "Number of observations:", 1, 100, 50)
                 )
+            
               )
+        
       ),
       
       # Second tab content
-      tabItem(tabName = "CSV",
-              h2("Widgets tab content"),
-              sidebarLayout(
-                sidebarPanel(
-                  fileInput("file1", "Choose CSV File",
-                            accept = c(
-                              "text/csv",
-                              "text/comma-separated-values,text/plain",
-                              ".csv")
+      tabItem(
+        
+        tabName = "CSV",
+        h2("CSV Viewer"),
+        sidebarLayout(
+        sidebarPanel(
+        fileInput("file1", "Choose CSV File",
+                      accept = c(
+                      "text/csv",
+                      "text/comma-separated-values,text/plain",
+                      ".csv")
                   ),
-                  tags$hr(),
-                  checkboxInput("header", "Header", TRUE)
-                ),
-                mainPanel(
-                  tableOutput("contents")
-                )
-              )
+        tags$hr(),
+        checkboxInput("header", "Header", TRUE), width = "10%"
+              ),
+        
+        mainPanel( tableOutput("contents") )
           )
+        ),
+      
+      
+      # Third tab content
+      tabItem(
+        
+        tabName = "Cognitive",
+        box(
+          
+          
+          
+        )
+        
+              
+              
+              
+        )
       
     )
     
@@ -70,20 +93,26 @@ server <- function(input, output) {
   })
   
   output$contents <- renderTable({
-    # input$file1 will be NULL initially. After the user selects
-    # and uploads a file, it will be a data frame with 'name',
-    # 'size', 'type', and 'datapath' columns. The 'datapath'
-    # column will contain the local filenames where the data can
-    # be found.
-    inFile <- input$file1
-    
     if (is.null(inFile))
       return(NULL)
     
     read.csv(inFile$datapath, header = input$header)
-    # View(inFile)
   })
+  
+  
+  
+  
+  
 }
 
 
 shinyApp(ui = ui, server = server)
+
+
+
+
+
+
+
+
+

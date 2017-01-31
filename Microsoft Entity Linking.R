@@ -21,14 +21,14 @@ getEntity <- function(text) {
     
   }
 
-  Output
+  # Output
   
 # Show Output
       
 
 
 ### 
-  review <- toString(mymatrix$Text[15233])
-  getEntity(review)
+  # review <- toString(mymatrix$Text[15233])
+  # getEntity(review)
   
 

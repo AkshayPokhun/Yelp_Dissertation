@@ -8,6 +8,8 @@ library(httr)
 
 getEntity <- function(text) {
   
+  
+  
   url <- "https://westus.api.cognitive.microsoft.com/entitylinking/v1.0/link"
     key <- "d21e5cfe59a646079793f840814dd0e2"
     

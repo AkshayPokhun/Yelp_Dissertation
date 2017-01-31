@@ -95,6 +95,7 @@ server <- function(input, output) {
   output$contents <- renderTable({
     if (is.null(inFile))
       return(NULL)
+    inFile <- input$file
     
     read.csv(inFile$datapath, header = input$header)
   })

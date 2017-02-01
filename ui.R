@@ -79,9 +79,37 @@ dashboardPage(
               
               h2( style = "margin-left:1%; font-family:helvlight;", "Analyze your data"),
               
-              actionButton(inputId="analyzeButton", "Start"),
-              
-              DT::dataTableOutput("analysis")
+            
+              navbarPage("Analytics", id="nav-analytics",
+                         
+                         
+                         tabPanel("Microsoft Entity Linking",
+                                  
+                                  fluidRow(
+                                    
+                                    actionButton(inputId="analyzeButton", "Start"),
+                                    
+                                    DT::dataTableOutput("analysis")
+                                  )
+                         ),
+                         
+                         tabPanel("Microsoft Text Analytics",
+                                  fluidRow(
+                                    actionButton(inputId="textaButton", "Begin"),
+                                    DT::dataTableOutput("textaTable")
+                                  )
+                         ),
+                        
+                         tabPanel("Stanford CoreNLP",
+                                  fluidRow(
+                                    actionButton(inputId="corenlpButton", "Start Annotation"),
+                                    DT::dataTableOutput("corenlptable")
+                                    
+                                  )
+                                  
+                                  
+                                  )
+              )
               
             )
             

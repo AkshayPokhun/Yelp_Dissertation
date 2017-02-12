@@ -48,7 +48,14 @@ test_file <-read.csv("../../Cleansed Data/test.csv")
   
   
   library(tm)
-  corpus <- Corpus(VectorSource(sel))
+  
+  pos <- data_processed$Business_id == 2
+  
+  sel <- data_processed[pos,]
+  
+  
+  corpus <- Corpus(VectorSource(sel$Text))
+  corpus <- tm_map(corpus, stemDocument, language = "english")
   tdm <- TermDocumentMatrix(corpus)
   dtm_ft <- weightTfIdf(tdm)
   m <- as.matrix(dtm_ft)
@@ -58,9 +65,36 @@ test_file <-read.csv("../../Cleansed Data/test.csv")
   tmp_copy <- tdm
   tdm <- weightTfIdf(tdm)
   
-  pos <- data_processed$Business_id == 2
-  
-  sel <- data_processed[pos,]
   
   View(as.matrix(tdm))
+  
+  findFreqTerms(tdm, lowfreq = 5)
+  
+  k_means <- kmeans(dtm_ft, 5)
+  kw_with_cluster <- as.data.frame(cbind(m, K_means$cluster))
+  plot(K_means$cluster)
+  
+  
+  ##Finding optimal k
+  cost_df <- data.frame()
+  
+  for(i in 1 :10){
+    
+    k_means <- kmeans(x=tdm, center=i, iter.max = 10)
+    cost_df <- rbind(cost_df, cbind(i, k_means$tot.withinss))
+    
+  }
+  
+  
+  names(cost_df) <- c("cluster", "cost")
+  
+  library(fpc)
+  k_means <- kmeans(tdm, 4)
+  
+  plotcluster(tdm, k_means$cluster)
+  
+  with(dtm_ft, pairs(m, col=c(1:5)[k_means$cluster]))
+  
+  clusplot(m, k_means$cluster, color=TRUE, shade=TRUE, 
+           labels=2, lines=0)
   
